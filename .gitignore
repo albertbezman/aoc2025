@@ -70,3 +70,10 @@ dmypy.json
 
 ## JS
 node_modules/
+
+## Go
+*.exe
+*.dll
+*.out
+*.so
+*.test
