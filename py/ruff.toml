@@ -1,0 +1,21 @@
+# Root of the repo for Python
+line-length = 100
+target-version = "py313"  # closest for now; update to "py314" when supported
+
+[lint]
+select = [
+    "E",   # pycodestyle errors
+    "F",   # pyflakes
+    "I",   # import sorting
+    "B",   # bugbear
+    "UP",  # pyupgrade
+]
+ignore = [
+    "E501",  # if you prefer to let line-length be a guideline
+]
+
+[format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "lf"
+
