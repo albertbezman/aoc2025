@@ -77,3 +77,9 @@ node_modules/
 *.out
 *.so
 *.test
+
+## Rust
+target/
+.cache/
+rust-analyzer/
+**/*.rs.bk
