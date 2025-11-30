@@ -6,6 +6,7 @@ Thumbs.db
 .vscode/
 .idea/
 .sw*
+*.sw*
 
 ## Java
 # Compiled class file
@@ -66,3 +67,6 @@ wheelhouse/
 dmypy.json
 
 .ruff_cache/
+
+## JS
+node_modules/
