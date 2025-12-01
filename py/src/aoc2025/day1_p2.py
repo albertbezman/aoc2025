@@ -26,8 +26,7 @@ def iter_instructions(ris: RotationInstructions, rs: RotationState) -> int:
             rs.incr(instruction.integer)
         else:
             raise Exception("op not supported")
-
-    return rs.hit_zero_count
+    return rs.final_zero_count
 
 
 @dataclass
@@ -40,24 +39,58 @@ class Instruction:
 class RotationInstructions:
     sequence: tuple[Instruction, ...]
 
-
 @dataclass
 class RotationState:
     current_val: int = 50
     hit_zero_count: int = 0
+    crossed_zero_count: int = 0
     modulo_val: int = 100
 
     def incr(self, x: int) -> None:
-        new = (self.current_val + x) % self.modulo_val
-        if new == 0:
+        s = self.current_val
+        m = self.modulo_val
+
+        a = m if s == 0 else m - s
+
+        if a > x:
+            n_hits = 0
+        else:
+            n_hits = 1 + (x - a) // m
+
+        new_val = (s + x) % m
+
+        if new_val == 0 and n_hits > 0:
             self.hit_zero_count += 1
-        self.current_val = new
+            self.crossed_zero_count += n_hits - 1
+        else:
+            self.crossed_zero_count += n_hits
+
+        self.current_val = new_val
 
     def decr(self, x: int) -> None:
-        new = (self.current_val - x) % self.modulo_val
-        if new == 0:
+        s = self.current_val
+        m = self.modulo_val
+
+        a = m if s == 0 else s
+
+        if a > x:
+            n_hits = 0
+        else:
+            n_hits = 1 + (x - a) // m
+
+        new_val = (s - x) % m
+
+        if new_val == 0 and n_hits > 0:
             self.hit_zero_count += 1
-        self.current_val = new
+            self.crossed_zero_count += n_hits - 1
+        else:
+            self.crossed_zero_count += n_hits
+
+        self.current_val = new_val
+
+    @property
+    def final_zero_count(self) -> int:
+        return self.hit_zero_count + self.crossed_zero_count
 
 
 def main() -> None:
