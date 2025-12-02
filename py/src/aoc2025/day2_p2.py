@@ -12,11 +12,12 @@ def parse_file() -> tuple[ProductRange, ...]:
 
     all_ranges = []
     for r in ranges:
-        start, end = r.split("-") 
+        start, end = r.split("-")
         pr = ProductRange(int(start), int(end))
         all_ranges.append(pr)
 
     return tuple(all_ranges)
+
 
 def iter_and_sum_ranges(ranges: tuple[ProductRange, ...], ir: IterRanges) -> int:
     for r in ranges:
@@ -29,10 +30,7 @@ def iter_and_sum_ranges(ranges: tuple[ProductRange, ...], ir: IterRanges) -> int
 def split_str_into_equal_segs(s: str, size: int) -> list:
     s_list = list(s)
     np_arrays = np.array_split(np.array(s_list), size)
-    tuple_lists = [
-        tuple(n.tolist())
-        for n in np_arrays
-    ]
+    tuple_lists = [tuple(n.tolist()) for n in np_arrays]
     return tuple_lists
 
 
@@ -62,10 +60,11 @@ class ProductRange:
 @dataclass
 class IterRanges:
     invalid_ids: list[int] = field(default_factory=list)
-    
+
     @property
     def summed_invalid_ids(self) -> int:
         return sum(self.invalid_ids)
+
 
 def main() -> None:
     prs = parse_file()

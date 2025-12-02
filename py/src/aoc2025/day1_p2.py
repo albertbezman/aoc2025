@@ -39,6 +39,7 @@ class Instruction:
 class RotationInstructions:
     sequence: tuple[Instruction, ...]
 
+
 @dataclass
 class RotationState:
     current_val: int = 50
